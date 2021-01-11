@@ -1,0 +1,9 @@
+dist/
+temp/
+build/
+node_modules/
+.idea/
+.history/
+.DS_Store/
+.vscode/
+
