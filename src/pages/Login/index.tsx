@@ -9,16 +9,20 @@ interface InitProp {
   history: any;
 }
 function Login(props: InitProp) {
-  const [userName, setUserName] = useState<string>('admin');
+  const [userName, setUserName] = useState<string>('user');
   const [password, setPassword] = useState<string>('123456');
 
   /**
    * @desc 提交登陆
    */
   const handleSubmit = () => {
-    if (userName === 'admin' && password === '123456') {
+    if (userName === 'user' && password === '123456') {
       const { history } = props;
-      history.push('/home');
+      history.push('/user');
+      localStorage.setItem('accessToken', 'login');
+    } else if (userName === 'admin') {
+      const { history } = props;
+      history.push('/admin');
       localStorage.setItem('accessToken', 'login');
     } else {
       openNotificationWithIcon('error', '账号或密码错误', '用户名：admin, 密码：123456');
@@ -31,8 +35,8 @@ function Login(props: InitProp) {
         <div className={styles.formLeft}>
           <i />
           <div>
-            <p>snake-cli</p>
-            <p>SummerSnake</p>
+            <p>企业项目管理</p>
+            <p>高效、清晰</p>
           </div>
         </div>
         <div className={styles.formRight}>

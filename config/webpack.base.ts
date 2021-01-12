@@ -14,6 +14,7 @@ module.exports = {
     filename: 'js/[name].[hash:6].js',
     chunkFilename: 'js/[name]_chunk.[chunkhash:8].js',
     path: resolve(__dirname, '../dist'), // 输出目录
+    publicPath: '/',
   },
   module: {
     rules: [
