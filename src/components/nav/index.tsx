@@ -13,7 +13,9 @@ type NavProps = {
 };
 export const Nav: React.FC<NavProps> = ({ navList = [] }) => {
   const { pathname } = window.location;
-  const [actKey, setActKey] = React.useState(navList.find((it) => it.path === pathname).key);
+  const [actKey, setActKey] = React.useState(
+    navList.find((it) => it.path === pathname)?.key || navList[0]?.key
+  );
 
   const handleClick = React.useCallback((e) => {
     setActKey(e.key);
