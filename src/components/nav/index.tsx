@@ -1,15 +1,24 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
-import { AppstoreOutlined, BugOutlined, BarsOutlined, BarChartOutlined } from '@ant-design/icons';
 
 import styles from './index.less';
+type NavProps = {
+  navList: {
+    name: string;
+    key: string;
+    path: string;
+    icon: React.ReactNode;
+  }[];
+};
+export const Nav: React.FC<NavProps> = ({ navList = [] }) => {
+  const { pathname } = window.location;
+  const [actKey, setActKey] = React.useState(navList.find((it) => it.path === pathname).key);
 
-export const Nav: React.FC<any> = () => {
-  const [actKey, setActKey] = React.useState('1');
   const handleClick = React.useCallback((e) => {
     setActKey(e.key);
   }, []);
+
   return (
     <div>
       <Menu
@@ -19,18 +28,11 @@ export const Nav: React.FC<any> = () => {
         onClick={handleClick}
         style={{ width: 256 }}
       >
-        <Menu.Item key="1" icon={<AppstoreOutlined />}>
-          <Link to="/user/home">个人看板</Link>
-        </Menu.Item>
-        <Menu.Item key="2" icon={<BugOutlined />}>
-          <Link to="/user/buglist">bug列表</Link>
-        </Menu.Item>
-        <Menu.Item key="/user/demand-list" icon={<BarsOutlined />}>
-          需求列表
-        </Menu.Item>
-        <Menu.Item key="/user/data-analysis" icon={<BarChartOutlined />}>
-          数据分析
-        </Menu.Item>
+        {navList?.map((item) => (
+          <Menu.Item key={item.key} icon={<item.icon />}>
+            <Link to={item.path}>{item.name}</Link>
+          </Menu.Item>
+        ))}
       </Menu>
     </div>
   );

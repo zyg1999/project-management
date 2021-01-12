@@ -1,50 +1,30 @@
-export const userRouter = [
+import { AppstoreOutlined, BugOutlined, BarsOutlined, BarChartOutlined } from '@ant-design/icons';
+
+export const userMenu = [
   {
-    name: '首页',
+    name: '个人看板',
+    key: 'home',
     path: '/user/home',
-    icon: 'home',
+    icon: AppstoreOutlined,
   },
-  // {
-  //   name: '表单',
-  //   path: 'formily',
-  //   icon: 'table',
-  //   list: [
-  //     {
-  //       name: 'formily',
-  //       path: '/content',
-  //     },
-  //   ],
-  // },
-  // {
-  //   name: '表格',
-  //   path: '/table',
-  //   icon: 'table',
-  //   list: [
-  //     {
-  //       name: '单个表格',
-  //       path: '/SingleTable',
-  //     },
-  //     {
-  //       name: '排班表格',
-  //       path: '/Scheduling',
-  //     },
-  //     {
-  //       name: '表格封装',
-  //       path: '/TableRiggerExample',
-  //     },
-  //   ],
-  // },
-  // {
-  //   name: '系统设置',
-  //   path: '/system',
-  //   icon: 'setting',
-  //   list: [
-  //     {
-  //       name: '菜单管理',
-  //       path: '/MenuManage',
-  //     },
-  //   ],
-  // },
+  {
+    name: 'bug列表',
+    key: 'bug',
+    path: '/user/buglist',
+    icon: BugOutlined,
+  },
+  {
+    name: '需求列表',
+    key: 'demand',
+    path: '/user/demand-list',
+    icon: BarsOutlined,
+  },
+  {
+    name: '数据分析',
+    key: 'data',
+    path: '/user/data-analysis',
+    icon: BarChartOutlined,
+  },
 ];
 
-export const adminRouter = [];
+export const adminMenu = [];
