@@ -139,6 +139,7 @@ module.exports = {
       '@config': resolve(__dirname, '../src/config'),
       '@services': resolve(__dirname, '../src/services'),
       '@utils': resolve(__dirname, '../src/utils'),
+      '@assets': resolve(__dirname, '../src/assets'),
     },
   },
 };
