@@ -14,7 +14,7 @@ export const userMenu = [
     icon: BugOutlined,
   },
   {
-    name: '需求列表',
+    name: '需求看板',
     key: 'demand',
     path: '/user/demand-list',
     icon: BarsOutlined,
