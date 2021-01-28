@@ -140,6 +140,7 @@ module.exports = {
       '@services': resolve(__dirname, '../src/services'),
       '@utils': resolve(__dirname, '../src/utils'),
       '@assets': resolve(__dirname, '../src/assets'),
+      '@constant': resolve(__dirname, '../src/constant'),
     },
   },
 };

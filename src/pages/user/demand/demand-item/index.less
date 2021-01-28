@@ -1,8 +1,10 @@
 .demand-item {
   width: 259px;
   height: 800px;
+  display: inline-block;
   background-color: #f2f4f6;
   border-radius: 5px;
+  margin-right: 8px;
 }
 
 .section-title {
@@ -19,9 +21,10 @@
   font-size: 16px;
   font-weight: 600;
   z-index: 2;
+  color: #515a6e;
 }
 
-.card-box{
+.card-box {
   overflow-y: auto;
   height: 758px;
 }
@@ -31,8 +34,33 @@
   margin: 10px auto;
 }
 
+.process {
+  position: relative;
+  padding-left: 10px;
+  &::before {
+    position: absolute;
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: #3da8f5;
+    border-radius: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -6px;
+  }
+}
+
 .avatar {
   width: 20px;
   height: 20px;
   border-radius: 100px;
+  margin-right: 8px;
+}
+
+.people-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #a6a6a6;
+  padding: 0 10px;
 }

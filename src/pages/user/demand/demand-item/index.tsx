@@ -1,71 +1,71 @@
 import * as React from 'react';
+import { Button, Tag, Modal } from 'antd';
+
 import styles from './index.less';
 
-export const DemandItem = () => {
+type DemandItemType = {
+  title: string;
+  process: string;
+  user_info: {
+    avatar: string;
+    name: string;
+  };
+  date: string;
+  link: string;
+};
+type DemandItemProps = {
+  title: string;
+  demandList: DemandItemType[];
+};
+
+export const DemandItem: React.FC<DemandItemProps> = ({ title, demandList = [] }) => {
+  const [selectCard, setCard] = React.useState<DemandItemType>({} as DemandItemType);
+
+  const handleBack = React.useCallback(
+    (item) => () => {
+      setCard(item);
+    },
+    []
+  );
+  const handleCancel = React.useCallback(() => {
+    setCard({} as DemandItemType);
+  }, []);
   return (
     <div className={styles['demand-item']}>
-      <div className={styles['section-title']}>需求评审池(50)</div>
+      <div className={styles['section-title']}>{title}</div>
       <div className={styles['card-box']}>
-        <div className={styles['small-card']}>
-          <p className={styles['demand-title']}>XXXX需求优化</p>
-          <div className={styles['people-info']}>
-            <div>
-              <span>需求内部评估</span>
-              <img className={styles['avatar']} src={require('@assets/avatar.jpeg').default} />
-              <span className={styles['people-name']}>zyg</span>
+        {demandList?.map((item, index) => (
+          <div key={index} className={styles['small-card']}>
+            <p className={styles['demand-title']}>{item.title}</p>
+            <div className={styles['people-info']}>
+              <span className={styles['process']}>{item.process}</span>
+              <div>
+                <img className={styles['avatar']} src={require('@assets/avatar.jpeg').default} />
+                <span className={styles['people-name']}>{item.user_info.name}</span>
+              </div>
             </div>
-            <div>未排期</div>
-          </div>
-          <div>文档</div>
-        </div>
-        <div className={styles['small-card']}>
-          <p className={styles['demand-title']}>XXXX需求优化</p>
-          <div className={styles['people-info']}>
             <div>
-              <span>需求内部评估</span>
-              <img className={styles['avatar']} src={require('@assets/avatar.jpeg').default} />
-              <span className={styles['people-name']}>zyg</span>
+              <Tag color={item.date ? '#108ee9' : '#f52003'}>
+                {item.date ? item.date : '未排期'}
+              </Tag>
             </div>
-            <div>未排期</div>
+            <Button style={{ padding: 0 }} type="link" href={item.link}>
+              文档
+            </Button>
+            <Button style={{ padding: 0, marginLeft: 10 }} type="link" onClick={handleBack(item)}>
+              <i style={{ fontSize: 16 }} className="iconfont iconhuitui" /> 回退
+            </Button>
           </div>
-          <div>文档</div>
-        </div>
-        <div className={styles['small-card']}>
-          <p className={styles['demand-title']}>XXXX需求优化</p>
-          <div className={styles['people-info']}>
-            <div>
-              <span>需求内部评估</span>
-              <img className={styles['avatar']} src={require('@assets/avatar.jpeg').default} />
-              <span className={styles['people-name']}>zyg</span>
-            </div>
-            <div>未排期</div>
-          </div>
-          <div>文档</div>
-        </div>
-        <div className={styles['small-card']}>
-          <p className={styles['demand-title']}>XXXX需求优化</p>
-          <div className={styles['people-info']}>
-            <div>
-              <span>需求内部评估</span>
-              <img className={styles['avatar']} src={require('@assets/avatar.jpeg').default} />
-              <span className={styles['people-name']}>zyg</span>
-            </div>
-            <div>未排期</div>
-          </div>
-          <div>文档</div>
-        </div>
-        <div className={styles['small-card']}>
-          <p className={styles['demand-title']}>XXXX需求优化</p>
-          <div className={styles['people-info']}>
-            <div>
-              <span>需求内部评估</span>
-              <img className={styles['avatar']} src={require('@assets/avatar.jpeg').default} />
-              <span className={styles['people-name']}>zyg</span>
-            </div>
-            <div>未排期</div>
-          </div>
-          <div>文档</div>
-        </div>
+        ))}
+        <Modal
+          title="确认提醒"
+          okText="确认"
+          cancelText="取消"
+          visible={Boolean(selectCard.title)}
+          onCancel={handleCancel}
+        >
+          <p>确认回退{selectCard.title}吗？</p>
+        </Modal>
       </div>
     </div>
   );
