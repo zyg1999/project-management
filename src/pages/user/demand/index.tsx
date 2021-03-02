@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import DemandItem from './demand-item/index';
 
@@ -37,9 +38,17 @@ const data = [
 ];
 
 export const Demand = () => {
+  const handleCreate = React.useCallback(
+    () => () => {
+      // window.history.push({})
+    },
+    []
+  );
   return (
     <div>
-      <Button type="primary">创建需求</Button>
+      <Button type="primary" onClick={handleCreate}>
+        <Link to="/user/create-demand">创建需求</Link>
+      </Button>
       <div className={styles['wrapper']}>
         <DemandItem title="需求评审池(50)" demandList={data} />
         <DemandItem title="开发池(50)" demandList={data} />

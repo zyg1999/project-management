@@ -31,7 +31,6 @@ export const Chart: React.FC = () => {
         fontWeight: 'normal',
       },
     },
-    // tooltip: {},
     animationDurationUpdate: 1500,
     animationEasingUpdate: 'quinticInOut',
     textStyle: {

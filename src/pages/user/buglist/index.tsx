@@ -2,14 +2,19 @@ import * as React from 'react';
 import { Card, Button, Form, Select, DatePicker } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { BUGTYPE, BUGTIME } from '@constant/index';
-
+import { BugCreate } from './bug-create/index';
 const { RangePicker } = DatePicker;
 const { Item } = Form;
 export const BugList = () => {
+  const [createVisible, setVisible] = React.useState(false);
+  const handleClick = React.useCallback(() => {
+    setVisible(true);
+  }, []);
+
   return (
     <div>
       <Card>
-        <Button style={{ margin: '10px 0' }} type="primary">
+        <Button style={{ margin: '10px 0' }} type="primary" onClick={handleClick}>
           创建Bug
         </Button>
         <Form layout="inline">
@@ -63,6 +68,7 @@ export const BugList = () => {
           </Item>
         </Form>
       </Card>
+      <BugCreate visible={createVisible} setVisible={setVisible} />
     </div>
   );
 };
