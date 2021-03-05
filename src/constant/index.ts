@@ -29,3 +29,32 @@ export const BUGTIME = [
     value: 5,
   },
 ];
+
+export const SYSTEM_TYPE = [
+  { label: 'FE', value: 1 },
+  { label: 'iOS', value: 2 },
+  { label: 'Android', value: 3 },
+  { label: 'Serve', value: 4 },
+];
+
+export const BUG_STATUS = [
+  { label: '重新打开', value: 1 },
+  { label: '开始', value: 2 },
+  { label: '关闭', value: 3 },
+  { label: '已解决', value: 4 },
+];
+
+export const BUG_PRIORITY = [
+  { label: 'P0', value: 1 },
+  { label: 'P1', value: 2 },
+  { label: 'P2', value: 3 },
+  { label: 'P3', value: 4 },
+];
+
+export const RESOLUTION = [
+  { label: '已修复', value: 1 },
+  { label: '拒绝修复', value: 2 },
+  { label: '未复现', value: 3 },
+  { label: '设计如此', value: 4 },
+  { label: '未来修复', value: 5 },
+];

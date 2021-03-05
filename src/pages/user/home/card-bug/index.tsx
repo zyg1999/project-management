@@ -1,7 +1,35 @@
 import * as React from 'react';
-import { Card, Radio, Select } from 'antd';
+import { Card, Radio, Select, Table } from 'antd';
+import { BUG_STATUS, BUG_PRIORITY } from '@constant/index';
 
 export const CardBug = () => {
+  const columns = [
+    {
+      title: '标题',
+      dataIndex: 'title',
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'create_time',
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+    },
+    {
+      title: '优先级',
+      dataIndex: 'priority_status',
+    },
+    {
+      title: '附件',
+      dataIndex: 'imgs',
+    },
+    {
+      title: '操作',
+      dataIndex: 'status',
+    },
+  ];
+
   return (
     <Card style={{ marginBottom: 20 }}>
       <h4>我的bug</h4>
@@ -13,25 +41,9 @@ export const CardBug = () => {
         value={'指派给我的 Bug'}
         optionType="button"
       />
-      <Select
-        style={{ margin: '0 10px' }}
-        placeholder="请选择 Bug 状态"
-        options={[
-          { label: '重新打开', key: '1' },
-          { label: '开始', key: '2' },
-          { label: '关闭', key: '3' },
-          { label: '已解决', key: '4' },
-        ]}
-      />
-      <Select
-        placeholder="请选择 Bug 优先级"
-        options={[
-          { label: 'p0', key: '1' },
-          { label: 'p1', key: '2' },
-          { label: 'p2', key: '3' },
-          { label: 'p3', key: '4' },
-        ]}
-      />
+      <Select style={{ margin: '0 10px' }} placeholder="请选择 Bug 状态" options={BUG_STATUS} />
+      <Select placeholder="请选择 Bug 优先级" options={BUG_PRIORITY} />
+      <Table style={{ marginTop: 20 }} columns={columns} />
     </Card>
   );
 };

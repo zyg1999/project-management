@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Modal, Form, Select, Input, Upload, message } from 'antd';
-import { BUGTYPE, BUGTIME } from '@constant/index';
+import { BUGTYPE, BUGTIME, SYSTEM_TYPE, BUG_PRIORITY } from '@constant/index';
 import styles from './index.less';
 
 const { Item } = Form;
@@ -48,16 +48,7 @@ export const BugCreate: React.FC<BugCreateProps> = ({ visible, setVisible }) => 
             },
           ]}
         >
-          <Select
-            placeholder="请选择系统类型"
-            options={[
-              { label: 'FE', value: '1' },
-              { label: 'iOS', value: ' 2' },
-              { label: 'Android', value: '3' },
-              { label: 'Serve', value: '4' },
-            ]}
-            allowClear
-          />
+          <Select placeholder="请选择系统类型" options={SYSTEM_TYPE} allowClear />
         </Item>
         <Item label="关联需求" required>
           <Select placeholder="请设置关联需求" />
@@ -66,15 +57,7 @@ export const BugCreate: React.FC<BugCreateProps> = ({ visible, setVisible }) => 
           <Input placeholder="请填写主题" />
         </Item>
         <Item label="优先级" required>
-          <Select
-            placeholder="请选择 Bug 优先级"
-            options={[
-              { label: 'p0', value: '1' },
-              { label: 'p1', value: '2' },
-              { label: 'p2', value: '3' },
-              { label: 'p3', value: '4' },
-            ]}
-          />
+          <Select placeholder="请选择 Bug 优先级" options={BUG_PRIORITY} />
         </Item>
         <Item label="报告人">
           <Input disabled />

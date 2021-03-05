@@ -32,7 +32,8 @@
       "@components/*": ["src/components/*"],
       "@config/*": ["src/config/*"],
       "@utils/*": ["src/utils/*"],
-      "@constant/*": ["src/constant/*"]
+      "@constant/*": ["src/constant/*"],
+      "@api/*": ["src/api/*"]
     }
   },
   "include": ["./src/**/*", "./global.d.ts"]

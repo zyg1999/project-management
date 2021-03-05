@@ -141,6 +141,7 @@ module.exports = {
       '@utils': resolve(__dirname, '../src/utils'),
       '@assets': resolve(__dirname, '../src/assets'),
       '@constant': resolve(__dirname, '../src/constant'),
+      '@api': resolve(__dirname, '../src/api')
     },
   },
 };

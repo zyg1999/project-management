@@ -17,9 +17,9 @@ export const CreateDemand: React.FC = () => {
             placeholder="请选择需求优先级"
             defaultValue="1"
             options={[
-              { value: '1', label: '普通(p2)' },
-              { value: '2', label: '紧急(p1)' },
-              { value: '3', label: '紧急(p0)' },
+              { value: 1, label: '普通(p2)' },
+              { value: 2, label: '紧急(p1)' },
+              { value: 3, label: '非常紧急(p0)' },
             ]}
           />
         </FormItem>
