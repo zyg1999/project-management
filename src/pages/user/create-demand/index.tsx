@@ -1,8 +1,215 @@
 import * as React from 'react';
 import { Card, Form, Input, Select } from 'antd';
+import { ReactEchartsCommon } from '@components/echart/index';
+
 const FormItem = Form.Item;
 
 export const CreateDemand: React.FC = () => {
+  const option2 = {
+    title: {
+      text: '',
+      x: 'center',
+      y: '20',
+      textStyle: {
+        fontWeight: 'normal',
+      },
+    },
+    animationDurationUpdate: 1500,
+    animationEasingUpdate: 'quinticInOut',
+    textStyle: {
+      color: '#000',
+    },
+    series: [
+      {
+        type: 'graph',
+        layout: 'none',
+        symbolSize: 10,
+        roam: false,
+        label: {
+          normal: {
+            show: true,
+          },
+        },
+        edgeSymbol: ['circle', 'arrow'],
+        edgeSymbolSize: [4, 10],
+        edgeLabel: {
+          normal: {
+            textStyle: {
+              fontSize: 12,
+            },
+          },
+        },
+        data: [
+          {
+            name: '需求内部评估',
+            x: 100,
+            y: 300,
+            symbolSize: 15, //节点的长和宽
+            itemStyle: {
+              normal: {
+                color: '#1890ff',
+              },
+            },
+            label: {
+              position: 'bottom',
+              distance: 10,
+            },
+          },
+          {
+            name: 'UI设计',
+            x: 300,
+            y: 200,
+            symbolSize: 15,
+            itemStyle: {
+              normal: {
+                color: '#1890ff',
+              },
+            },
+            label: {
+              position: 'bottom',
+              distance: 10,
+            },
+          },
+          {
+            name: '埋点设计及验收',
+            x: 300,
+            y: 400,
+            symbolSize: 15,
+            itemStyle: {
+              normal: {
+                color: '#1890ff',
+              },
+            },
+            label: {
+              position: 'bottom',
+              distance: 10,
+            },
+          },
+          {
+            name: '开发评审',
+            x: 500,
+            y: 300,
+            symbolSize: 15,
+            itemStyle: {
+              normal: {
+                color: '#1890ff',
+              },
+            },
+            label: {
+              position: 'bottom',
+              distance: 10,
+            },
+          },
+          {
+            name: 'server开发',
+            x: 600,
+            y: 300,
+            symbolSize: 15,
+            itemStyle: {
+              normal: {
+                color: '#1890ff',
+              },
+            },
+            label: {
+              position: 'bottom',
+              distance: 10,
+            },
+          },
+          {
+            name: '前端开发',
+            x: 700,
+            y: 300,
+            symbolSize: 15,
+            itemStyle: {
+              normal: {
+                color: '#1890ff',
+              },
+            },
+            label: {
+              position: 'bottom',
+              distance: 10,
+            },
+          },
+          {
+            name: 'QA验收',
+            x: 800,
+            y: 300,
+            symbolSize: 15,
+            itemStyle: {
+              normal: {
+                color: '#1890ff',
+              },
+            },
+            label: {
+              position: 'bottom',
+              distance: 10,
+            },
+          },
+          {
+            name: 'PM验收',
+            x: 900,
+            y: 300,
+            symbolSize: 15,
+            itemStyle: {
+              normal: {
+                color: '#1890ff',
+              },
+            },
+            label: {
+              position: 'bottom',
+              distance: 10,
+            },
+          },
+        ],
+        links: [
+          {
+            source: 0,
+            target: 1,
+          },
+          {
+            source: 2,
+            target: 3,
+          },
+          {
+            source: 3,
+            target: 4,
+          },
+          {
+            source: 3,
+            target: 4,
+          },
+          {
+            source: 4,
+            target: 5,
+          },
+          {
+            source: 5,
+            target: 6,
+          },
+          {
+            source: 6,
+            target: 7,
+          },
+          {
+            source: 7,
+            target: 8,
+          },
+          {
+            source: '需求内部评估',
+            target: 'UI设计',
+          },
+          {
+            source: '需求内部评估',
+            target: '埋点设计及验收',
+          },
+          {
+            source: 'UI设计',
+            target: '开发评审',
+          },
+        ],
+      },
+    ],
+  };
   return (
     <Card title="新建需求">
       <Form layout="vertical">
@@ -15,7 +222,7 @@ export const CreateDemand: React.FC = () => {
         <FormItem label="优先级">
           <Select
             placeholder="请选择需求优先级"
-            defaultValue="1"
+            value={1}
             options={[
               { value: 1, label: '普通(p2)' },
               { value: 2, label: '紧急(p1)' },
@@ -28,7 +235,9 @@ export const CreateDemand: React.FC = () => {
         </FormItem>
         <FormItem label="所属业务"></FormItem>
         <FormItem label="需求负责人"></FormItem>
+        <FormItem label="技术负责人"></FormItem>
       </Form>
+      <ReactEchartsCommon style={{ width: 1000, margin: '0 auto' }} option={option2} />
     </Card>
   );
 };

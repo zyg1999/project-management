@@ -5,12 +5,14 @@ const demandList = {
   list: [
     {
       title: '大放送活动',
+      demand_id: 1,
       business_line: '营销',
       status: '未开始',
       date: '08-20 00:00 ~ 08-21 23:59',
     },
     {
       title: '购车工具',
+      demand_id: 2,
       business_line: '营销',
       status: '进行中',
       date: '',

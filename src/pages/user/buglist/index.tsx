@@ -118,10 +118,24 @@ export const BugList = () => {
       render: (_, record) => {
         return (
           <div>
-            {[1, 2].includes(record.status) && <Button>解决问题</Button>}
-            {[3, 4].includes(record.status) && <Button>恢复开启问题</Button>}
-            {record.status === 4 && <Button>关闭问题</Button>}
-            <Button>详情</Button>
+            {[1, 2].includes(record.status) && (
+              <Button className={styles.btn} size="small" type="primary">
+                解决问题
+              </Button>
+            )}
+            {[3, 4].includes(record.status) && (
+              <Button className={styles.btn} size="small" type="primary">
+                恢复开启问题
+              </Button>
+            )}
+            {record.status === 4 && (
+              <Button className={styles.btn} size="small" type="primary">
+                关闭问题
+              </Button>
+            )}
+            <Button className={styles.btn} size="small" type="primary">
+              详情
+            </Button>
           </div>
         );
       },
