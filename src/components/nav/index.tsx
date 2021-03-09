@@ -1,5 +1,5 @@
 import * as React from 'react';
-import cs from 'classnames'
+import cs from 'classnames';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 
@@ -37,7 +37,6 @@ export const Nav: React.FC<NavProps> = ({ navList = [] }) => {
           </Menu.Item>
         ))}
       </Menu>
-      {/* <i style={{ fontSize: 16 }} onClick={handleIconClick} className={cs(`iconfont ${collapsed? 'iconzhedie1': 'iconzhedie2'}`, styles.icon) } /> */}
     </div>
   );
 };

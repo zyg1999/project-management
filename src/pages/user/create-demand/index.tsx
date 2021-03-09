@@ -1,9 +1,21 @@
 import * as React from 'react';
-import { Card, Form, Input, Select } from 'antd';
+import { Card, Form, Input, Select, Button } from 'antd';
 import { ReactEchartsCommon } from '@components/echart/index';
+
+import styles from './index.less';
 
 const FormItem = Form.Item;
 
+const process = [
+  '需求内部评估',
+  'UI设计',
+  '埋点设计及验收',
+  '开发评审',
+  'server开发',
+  '前端开发',
+  'QA验收',
+  'PM验收',
+];
 export const CreateDemand: React.FC = () => {
   const option2 = {
     title: {
@@ -58,7 +70,7 @@ export const CreateDemand: React.FC = () => {
           {
             name: 'UI设计',
             x: 300,
-            y: 200,
+            y: 250,
             symbolSize: 15,
             itemStyle: {
               normal: {
@@ -73,7 +85,7 @@ export const CreateDemand: React.FC = () => {
           {
             name: '埋点设计及验收',
             x: 300,
-            y: 400,
+            y: 350,
             symbolSize: 15,
             itemStyle: {
               normal: {
@@ -102,8 +114,8 @@ export const CreateDemand: React.FC = () => {
           },
           {
             name: 'server开发',
-            x: 600,
-            y: 300,
+            x: 650,
+            y: 250,
             symbolSize: 15,
             itemStyle: {
               normal: {
@@ -117,8 +129,8 @@ export const CreateDemand: React.FC = () => {
           },
           {
             name: '前端开发',
-            x: 700,
-            y: 300,
+            x: 650,
+            y: 350,
             symbolSize: 15,
             itemStyle: {
               normal: {
@@ -167,6 +179,14 @@ export const CreateDemand: React.FC = () => {
             target: 1,
           },
           {
+            source: 0,
+            target: 2,
+          },
+          {
+            source: 1,
+            target: 3,
+          },
+          {
             source: 2,
             target: 3,
           },
@@ -176,11 +196,11 @@ export const CreateDemand: React.FC = () => {
           },
           {
             source: 3,
-            target: 4,
+            target: 5,
           },
           {
             source: 4,
-            target: 5,
+            target: 6,
           },
           {
             source: 5,
@@ -193,18 +213,6 @@ export const CreateDemand: React.FC = () => {
           {
             source: 7,
             target: 8,
-          },
-          {
-            source: '需求内部评估',
-            target: 'UI设计',
-          },
-          {
-            source: '需求内部评估',
-            target: '埋点设计及验收',
-          },
-          {
-            source: 'UI设计',
-            target: '开发评审',
           },
         ],
       },
@@ -233,11 +241,35 @@ export const CreateDemand: React.FC = () => {
         <FormItem label="备注">
           <Input placeholder="请填写备注" />
         </FormItem>
-        <FormItem label="所属业务"></FormItem>
-        <FormItem label="需求负责人"></FormItem>
-        <FormItem label="技术负责人"></FormItem>
+        <FormItem label="所属业务">
+          <Select />
+        </FormItem>
+        <FormItem label="需求负责人">
+          <Input readOnly disabled />
+        </FormItem>
+        <FormItem label="技术负责人">
+          <Select />
+        </FormItem>
       </Form>
       <ReactEchartsCommon style={{ width: 1000, margin: '0 auto' }} option={option2} />
+      <div className={styles.process}>
+        {process.map((item, index) => (
+          <div className={styles['process-item']} key={index}>
+            <h4>{item}</h4>
+            <Button style={{ padding: 0 }} type="link" size="small">
+              设置负责人
+            </Button>
+            <div className={styles.action}>
+              <Button style={{ padding: 0 }} type="link" size="small">
+                设置排期
+              </Button>
+              <Button style={{ padding: 0 }} type="link" size="small">
+                完成
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
     </Card>
   );
 };

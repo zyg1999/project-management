@@ -4,7 +4,7 @@ import { ReactEchartsCommon } from '@components/echart/index';
 export const Chart: React.FC = () => {
   const option = {
     title: {
-      text: 'ECharts 入门示例',
+      text: '柱形图示例',
     },
     tooltip: {},
     legend: {
@@ -41,7 +41,7 @@ export const Chart: React.FC = () => {
         type: 'graph',
         layout: 'none',
         symbolSize: 10,
-        roam: true,
+        roam: false,
         label: {
           normal: {
             show: true,

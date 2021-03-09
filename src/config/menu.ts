@@ -1,4 +1,12 @@
-import { AppstoreOutlined, BugOutlined, BarsOutlined, BarChartOutlined } from '@ant-design/icons';
+import {
+  AppstoreOutlined,
+  BugOutlined,
+  BarsOutlined,
+  BarChartOutlined,
+  ApartmentOutlined,
+  UsergroupAddOutlined,
+  ProjectOutlined,
+} from '@ant-design/icons';
 
 export const userMenu = [
   {
@@ -27,4 +35,23 @@ export const userMenu = [
   },
 ];
 
-export const adminMenu = [];
+export const adminMenu = [
+  {
+    name: '业务线管理',
+    key: 'business',
+    path: '/admin/business-line',
+    icon: ApartmentOutlined,
+  },
+  {
+    name: '人员管理',
+    key: 'people',
+    path: '/admin/people-manage',
+    icon: UsergroupAddOutlined,
+  },
+  {
+    name: '模版管理',
+    key: 'model',
+    path: '/admin/model-manage',
+    icon: ProjectOutlined,
+  },
+];
