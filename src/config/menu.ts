@@ -16,7 +16,7 @@ export const userMenu = [
     icon: AppstoreOutlined,
   },
   {
-    name: 'bug列表',
+    name: 'Bug 列表',
     key: 'bug',
     path: '/user/buglist',
     icon: BugOutlined,
