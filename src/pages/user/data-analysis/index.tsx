@@ -1,12 +1,12 @@
 import * as React from 'react';
+import { Card } from 'antd';
 import { ReactEchartsCommon } from '@components/echart/index';
+import { BUGTYPE, RESOLUTION } from '@constant/index';
+import styles from './index.less';
 
 export const Chart: React.FC = () => {
   const option = {
-    title: {
-      text: '柱形图示例',
-    },
-    tooltip: {},
+    color: '#4c7beb',
     legend: {
       data: ['销量'],
     },
@@ -22,209 +22,87 @@ export const Chart: React.FC = () => {
       },
     ],
   };
-  const option2 = {
-    title: {
-      text: '流程图',
-      x: 'center',
-      y: '20',
-      textStyle: {
-        fontWeight: 'normal',
-      },
+
+  const bugTypeOption = {
+    color: ['#4c7beb', '#ff995a', '#fa595c', '#aa73ee', '#58dada', '#54cc46'],
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b} : {c} ({d}%)',
     },
-    animationDurationUpdate: 1500,
-    animationEasingUpdate: 'quinticInOut',
-    textStyle: {
-      color: '#000',
+    legend: {
+      orient: 'horizontal',
+      data: BUGTYPE.map((item) => item.label),
     },
     series: [
       {
-        type: 'graph',
-        layout: 'none',
-        symbolSize: 10,
-        roam: false,
-        label: {
-          normal: {
-            show: true,
-          },
-        },
-        edgeSymbol: ['circle', 'arrow'],
-        edgeSymbolSize: [4, 10],
-        edgeLabel: {
-          normal: {
-            textStyle: {
-              fontSize: 12,
-            },
-          },
-        },
+        name: '访问来源',
+        type: 'pie',
+        radius: ['50%', '70%'],
         data: [
-          {
-            name: 'Start',
-            x: 100,
-            y: 300,
-            symbolSize: 15, //节点的长和宽
-            itemStyle: {
-              normal: {
-                color: '#1890ff',
-              },
-            },
-            label: {
-              position: 'bottom',
-              distance: 10,
-            },
-          },
-          {
-            name: '签发',
-            x: 200,
-            y: 300,
-            symbolSize: 15,
-            itemStyle: {
-              normal: {
-                color: '#1890ff',
-              },
-            },
-            label: {
-              position: 'bottom',
-              distance: 10,
-            },
-          },
-          {
-            name: '单专业会签',
-            x: 400,
-            y: 400,
-            symbolSize: 15,
-            itemStyle: {
-              normal: {
-                color: '#1890ff',
-              },
-            },
-            label: {
-              position: 'bottom',
-              distance: 10,
-            },
-          },
-          {
-            name: '运行接收',
-            x: 400,
-            y: 300,
-            symbolSize: 15,
-            itemStyle: {
-              normal: {
-                color: '#1890ff',
-              },
-            },
-            label: {
-              position: 'bottom',
-              distance: 10,
-            },
-          },
-          {
-            name: '运行班许可',
-            x: 500,
-            y: 300,
-            symbolSize: 15,
-            itemStyle: {
-              normal: {
-                color: '#1890ff',
-              },
-            },
-            label: {
-              position: 'bottom',
-              distance: 10,
-            },
-          },
-          {
-            name: '运行执行',
-            x: 600,
-            y: 300,
-            symbolSize: 15,
-            itemStyle: {
-              normal: {
-                color: '#1890ff',
-              },
-            },
-            label: {
-              position: 'bottom',
-              distance: 10,
-            },
-          },
-          {
-            name: '运行终结工作票',
-            x: 700,
-            y: 300,
-            symbolSize: 15,
-            itemStyle: {
-              normal: {
-                color: '#1890ff',
-              },
-            },
-            label: {
-              position: 'bottom',
-              distance: 10,
-            },
-          },
-          {
-            name: 'END',
-            x: 800,
-            y: 300,
-            symbolSize: 15,
-            itemStyle: {
-              normal: {
-                color: '#1890ff',
-              },
-            },
-            label: {
-              position: 'bottom',
-              distance: 10,
-            },
-          },
+          { value: 335, name: '异常边界' },
+          { value: 310, name: '兼容性问题' },
+          { value: 234, name: 'UI问题' },
+          { value: 135, name: '统计埋点问题' },
+          { value: 1548, name: '功能逻辑问题' },
+          { value: 10, name: '性能问题' },
         ],
-        links: [
-          {
-            source: 0,
-            target: 1,
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
-          {
-            source: 1,
-            target: 2,
-          },
-          {
-            source: 1,
-            target: 3,
-          },
-          {
-            source: 3,
-            target: 4,
-          },
-          {
-            source: 3,
-            target: 4,
-          },
-          {
-            source: 4,
-            target: 5,
-          },
-          {
-            source: 5,
-            target: 6,
-          },
-          {
-            source: 6,
-            target: 7,
-          },
-          {
-            source: 7,
-            target: 8,
-          },
-        ],
+        },
       },
     ],
   };
-
+  const resolutionOption = {
+    color: ['#4c7beb', '#ff995a', '#fa595c', '#aa73ee', '#58dada', '#54cc46'],
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b} : {c} ({d}%)',
+    },
+    legend: {
+      orient: 'horizontal',
+      data: RESOLUTION.map((item) => item.label),
+    },
+    series: [
+      {
+        name: '访问来源',
+        type: 'pie',
+        radius: ['50%', '70%'],
+        data: [
+          { name: '已修复', value: 1 },
+          { name: '拒绝修复', value: 2 },
+          { name: '未复现', value: 3 },
+          { name: '设计如此', value: 4 },
+          { name: '未来修复', value: 5 },
+        ],
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+      },
+    ],
+  };
   return (
-    <>
-      <ReactEchartsCommon style={{ width: 400 }} option={option} />
-      <ReactEchartsCommon style={{ width: 800 }} option={option2} />
-    </>
+    <div className={styles.wrapper}>
+      <Card>
+        <h3>柱形图</h3>
+        <ReactEchartsCommon style={{ width: 600 }} option={option} />
+      </Card>
+      <Card>
+        <h3>Bug类型看板</h3>
+        <ReactEchartsCommon style={{ width: 600 }} option={bugTypeOption} />
+      </Card>
+      <Card>
+        <h3>Bug解决方案看板</h3>
+        <ReactEchartsCommon style={{ width: 600 }} option={resolutionOption} />
+      </Card>
+    </div>
   );
 };
 

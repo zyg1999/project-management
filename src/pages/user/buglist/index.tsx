@@ -39,11 +39,6 @@ export const BugList = () => {
 
   const columns = [
     {
-      title: 'bugId',
-      dataIndex: 'bug_id',
-      key: 'bug_id',
-    },
-    {
       title: '创建日期',
       dataIndex: 'create_time',
       key: 'create_time',

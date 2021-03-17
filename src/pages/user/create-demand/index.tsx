@@ -18,14 +18,6 @@ const process = [
 ];
 export const CreateDemand: React.FC = () => {
   const option2 = {
-    title: {
-      text: '',
-      x: 'center',
-      y: '20',
-      textStyle: {
-        fontWeight: 'normal',
-      },
-    },
     animationDurationUpdate: 1500,
     animationEasingUpdate: 'quinticInOut',
     textStyle: {

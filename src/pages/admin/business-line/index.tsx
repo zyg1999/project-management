@@ -23,7 +23,7 @@ export const BusinessLine = () => {
     },
     []
   );
-  const colums = [
+  const columns = [
     {
       title: '业务线名称',
       dataIndex: 'business_name',
@@ -64,7 +64,7 @@ export const BusinessLine = () => {
       </Button>
       <Table
         className={styles.table}
-        columns={colums}
+        columns={columns}
         rowKey="business_name"
         dataSource={businessList}
       />

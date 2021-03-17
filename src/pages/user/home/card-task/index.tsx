@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Card, Radio, Table, DatePicker, Button } from 'antd';
+import { Card, Radio, Table, DatePicker, Button, Modal, Form, Input } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import '../../../../../mock/demand-list';
 import { getDemandList } from '../../../../api/home';
 const { RangePicker } = DatePicker;
 
 import styles from './index.less';
+const { Item } = Form;
 
 const DEMAND_LIST = [
   { label: '未完成需求', value: 1 },
@@ -15,11 +16,20 @@ const DEMAND_LIST = [
 export const CardTask = () => {
   const [status, setStatus] = React.useState(1);
   const [list, setList] = React.useState();
+  const [bugDetailVisible, setVisible] = React.useState(false);
   const [pagination, setPagination] = React.useState({ current: 1, pageSize: 10, total: 0 });
 
   const handleClick = React.useCallback((e: RadioChangeEvent) => {
     setStatus(e.target.value);
   }, []);
+
+  const handleComplete = React.useCallback(
+    (id: number) => () => {
+      setVisible(true);
+      console.log(id, 'id');
+    },
+    []
+  );
 
   const columns = [
     {
@@ -41,12 +51,17 @@ export const CardTask = () => {
     },
     {
       title: '操作',
-      render: () => (
+      render: (id) => (
         <div>
           <Button type="primary" size="small">
             查看
           </Button>
-          <Button style={{ marginLeft: 5, backgroundColor: '#2db7f5' }} type="primary" size="small">
+          <Button
+            style={{ marginLeft: 5, backgroundColor: '#2db7f5' }}
+            type="primary"
+            size="small"
+            onClick={handleComplete(id)}
+          >
             完成
           </Button>
         </div>
@@ -65,28 +80,49 @@ export const CardTask = () => {
   }, []);
 
   return (
-    <Card style={{ marginBottom: 20 }}>
-      <h4>分配给我的任务</h4>
-      <Radio.Group
-        options={DEMAND_LIST}
-        onChange={handleClick}
-        value={status}
-        optionType="button"
-      />
-      {status === 2 && (
-        <div className={styles.time}>
-          <span>时间查询区间：</span>
-          <RangePicker allowClear style={{ marginLeft: 20 }} />
-        </div>
-      )}
-      <Table
-        rowKey="demand_id"
-        pagination={pagination}
-        dataSource={list}
-        style={{ marginTop: 20 }}
-        columns={columns}
-      />
-    </Card>
+    <>
+      <Card style={{ marginBottom: 20 }}>
+        <h4>分配给我的任务</h4>
+        <Radio.Group
+          options={DEMAND_LIST}
+          onChange={handleClick}
+          value={status}
+          optionType="button"
+        />
+        {status === 2 && (
+          <div className={styles.time}>
+            <span>时间查询区间：</span>
+            <RangePicker allowClear style={{ marginLeft: 20 }} />
+          </div>
+        )}
+        <Table
+          rowKey="demand_id"
+          pagination={pagination}
+          dataSource={list}
+          style={{ marginTop: 20 }}
+          columns={columns}
+        />
+      </Card>
+      <Modal
+        title="相关信息"
+        visible={bugDetailVisible}
+        onCancel={() => setVisible(false)}
+        okText="确定"
+        cancelText="取消"
+      >
+        <Form>
+          <Item label="提测建议">
+            <Input placeholder="请填写提测建议" />
+          </Item>
+          <Item label="设计文档">
+            <Input placeholder="请填写设计文档" />
+          </Item>
+          <Item label="工时" style={{ width: 200 }}>
+            <Input type="number" placeholder="请填写天数" />
+          </Item>
+        </Form>
+      </Modal>
+    </>
   );
 };
 
