@@ -10,6 +10,12 @@ export const Chart: React.FC = () => {
     legend: {
       data: ['销量'],
     },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+      },
+    },
     xAxis: {
       data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
     },

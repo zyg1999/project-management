@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Card, Radio, Table, DatePicker, Button, Modal, Form, Input } from 'antd';
+import cs from 'classnames';
+import { Card, Radio, Table, DatePicker, Button, Modal, Form, Input, Select } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import '../../../../../mock/demand-list';
 import { getDemandList } from '../../../../api/home';
@@ -17,6 +18,7 @@ export const CardTask = () => {
   const [status, setStatus] = React.useState(1);
   const [list, setList] = React.useState();
   const [bugDetailVisible, setVisible] = React.useState(false);
+  const [deleteVisible, setDeleteVisible] = React.useState(false);
   const [pagination, setPagination] = React.useState({ current: 1, pageSize: 10, total: 0 });
 
   const handleClick = React.useCallback((e: RadioChangeEvent) => {
@@ -31,6 +33,13 @@ export const CardTask = () => {
     []
   );
 
+  const handleCloseClick = React.useCallback(
+    (id: number) => () => {
+      console.log(id);
+      setDeleteVisible(true);
+    },
+    []
+  );
   const columns = [
     {
       title: '需求名称',
@@ -47,7 +56,18 @@ export const CardTask = () => {
     {
       title: '排期',
       dataIndex: 'date',
-      render: (date, _) => <span>{date ? date : '设置排期'}</span>,
+      render: (date, row) =>
+        date ? (
+          <div className={styles.date}>
+            <span>{date}</span>
+            <i
+              className={cs('iconfont iconclose', styles.close)}
+              onClick={handleCloseClick(row.id)}
+            />
+          </div>
+        ) : (
+          <RangePicker placeholder={['设置开始时间', '设置结束时间']} />
+        ),
     },
     {
       title: '操作',
@@ -96,7 +116,7 @@ export const CardTask = () => {
           </div>
         )}
         <Table
-          rowKey="demand_id"
+          rowKey="id"
           pagination={pagination}
           dataSource={list}
           style={{ marginTop: 20 }}
@@ -119,6 +139,28 @@ export const CardTask = () => {
           </Item>
           <Item label="工时" style={{ width: 200 }}>
             <Input type="number" placeholder="请填写天数" />
+          </Item>
+        </Form>
+      </Modal>
+      <Modal
+        title="删除排期"
+        visible={deleteVisible}
+        onCancel={() => setDeleteVisible(false)}
+        okText="确定"
+        cancelText="取消"
+      >
+        <Form>
+          <Item label="原因" required>
+            <Select
+              allowClear
+              options={[
+                { label: '需求变更', value: 1 },
+                { label: '其他', value: 2 },
+              ]}
+            />
+          </Item>
+          <Item label="补充">
+            <Input.TextArea maxLength={200} autoSize={{ minRows: 3, maxRows: 5 }} />
           </Item>
         </Form>
       </Modal>
