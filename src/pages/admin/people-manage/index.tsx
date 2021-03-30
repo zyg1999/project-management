@@ -34,8 +34,10 @@ export const PeopleManage = () => {
       render: (val, _) => (
         <Tag color="blue">
           {
-            SYSTEM_TYPE.concat([{ label: 'PM', value: 5 }]).find((item) => item.value === val)
-              ?.label
+            SYSTEM_TYPE.concat([
+              { label: 'PM', value: 5 },
+              { label: 'QA', value: 6 },
+            ]).find((item) => item.value === val)?.label
           }
         </Tag>
       ),
