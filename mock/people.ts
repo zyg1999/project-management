@@ -54,4 +54,4 @@ const demandList = {
   ],
 };
 
-export default mockJs.mock('/api/get_people_list', 'get', demandList);
+export default mockJs.mock('/api/people/list', 'get', demandList);

@@ -9,6 +9,7 @@ import {
   BUG_PRIORITY,
   RESOLUTION,
 } from '@constant/index';
+import SolveBugModal from '@components/solve-bug/index';
 import { BugCreate } from './bug-create/index';
 import { getBugList } from '../../../api/bug-list';
 import '../../../../mock/bug-list';
@@ -21,7 +22,8 @@ export const BugList = () => {
   const [createVisible, setVisible] = React.useState(false);
   const [bugList, setBugList] = React.useState([]);
   const [pagination, setPagination] = React.useState({ current: 1, pageSize: 20, total: 0 });
-
+  const [bugVisible, setBugVisible] = React.useState<boolean>(false);
+  const [selectBug, setSelect] = React.useState(0);
   const handleClick = React.useCallback(() => {
     setVisible(true);
   }, []);
@@ -114,7 +116,15 @@ export const BugList = () => {
         return (
           <div>
             {[1, 2].includes(record.status) && (
-              <Button className={styles.btn} size="small" type="primary">
+              <Button
+                className={styles.btn}
+                size="small"
+                type="primary"
+                onClick={() => {
+                  setBugVisible(true);
+                  setSelect(record.bug_id);
+                }}
+              >
                 解决问题
               </Button>
             )}
@@ -210,6 +220,7 @@ export const BugList = () => {
         />
       </Card>
       <BugCreate visible={createVisible} setVisible={setVisible} />
+      <SolveBugModal visible={bugVisible} setVisible={setBugVisible} bugId={selectBug} />
     </div>
   );
 };

@@ -40,4 +40,4 @@ const demandBorder = {
   complete_poll: {},
 };
 
-export default mockJs.mock('/api/get_demand_board', 'get', demandBorder);
+export default mockJs.mock('/api/demand/board', 'get', demandBorder);

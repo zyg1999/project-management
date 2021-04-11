@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Card, Radio, Select, Table, Button, Tag } from 'antd';
 import { BUG_STATUS, BUG_PRIORITY } from '@constant/index';
+import SolveBugModal from '@components/solve-bug/index';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import { getBugList } from '../../../../api/bug-list';
 import '../../../../../mock/bug-list';
@@ -14,7 +15,8 @@ export const CardBug = () => {
   const [bugType, setBugType] = React.useState(1);
   const [bugList, setBugList] = React.useState();
   const [pagination, setPagination] = React.useState({ current: 1, pageSize: 10, total: 0 });
-
+  const [bugVisible, setBugVisible] = React.useState<boolean>(false);
+  const [selectBug, setSelect] = React.useState(0);
   const columns = [
     {
       title: '标题',
@@ -65,7 +67,15 @@ export const CardBug = () => {
         return (
           <div>
             {[1, 2].includes(record.status) && (
-              <Button className={styles.btn} size="small" type="primary">
+              <Button
+                className={styles.btn}
+                size="small"
+                type="primary"
+                onClick={() => {
+                  setBugVisible(true);
+                  setSelect(record.bug_id);
+                }}
+              >
                 解决问题
               </Button>
             )}
@@ -125,6 +135,7 @@ export const CardBug = () => {
         dataSource={bugList}
         columns={columns}
       />
+      <SolveBugModal visible={bugVisible} setVisible={setBugVisible} bugId={selectBug} />
     </Card>
   );
 };

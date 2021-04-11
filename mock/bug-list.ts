@@ -76,4 +76,4 @@ const bugList = {
   ],
 };
 
-export default mockJs.mock('/api/get_bug_list', 'get', bugList);
+export default mockJs.mock('/api/bug/list', 'get', bugList);

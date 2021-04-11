@@ -239,9 +239,6 @@ export const CreateDemand: React.FC = () => {
         <FormItem label="需求负责人">
           <Input readOnly disabled />
         </FormItem>
-        <FormItem label="技术负责人">
-          <Select />
-        </FormItem>
       </Form>
       <ReactEchartsCommon style={{ width: 1000, margin: '0 auto' }} option={option2} />
       <div className={styles.process}>

@@ -109,12 +109,6 @@ export const CardTask = () => {
           value={status}
           optionType="button"
         />
-        {status === 2 && (
-          <div className={styles.time}>
-            <span>时间查询区间：</span>
-            <RangePicker allowClear style={{ marginLeft: 20 }} />
-          </div>
-        )}
         <Table
           rowKey="id"
           pagination={pagination}

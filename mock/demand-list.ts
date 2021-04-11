@@ -20,4 +20,4 @@ const demandList = {
   ],
 };
 
-export default mockJs.mock('/api/get_demand_list', 'get', demandList);
+export default mockJs.mock('/api/demand/list', 'get', demandList);

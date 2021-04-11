@@ -52,20 +52,8 @@ export const DemandItem: React.FC<DemandItemProps> = ({ title, demandList = [] }
             <Button style={{ padding: 0 }} type="link" href={item.link}>
               文档
             </Button>
-            <Button style={{ padding: 0, marginLeft: 10 }} type="link" onClick={handleBack(item)}>
-              <i style={{ fontSize: 16 }} className="iconfont iconhuitui" /> 回退
-            </Button>
           </div>
         ))}
-        <Modal
-          title="确认提醒"
-          okText="确认"
-          cancelText="取消"
-          visible={Boolean(selectCard.title)}
-          onCancel={handleCancel}
-        >
-          <p>确认回退{selectCard.title}吗？</p>
-        </Modal>
       </div>
     </div>
   );

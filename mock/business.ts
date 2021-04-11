@@ -21,4 +21,4 @@ const data = {
   ],
 };
 
-export default mockJs.mock('/api/get_business_line', 'get', data);
+export default mockJs.mock('/api/business_line/list', 'get', data);
