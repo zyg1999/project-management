@@ -4,7 +4,7 @@ export const CardDemand = () => {
   const columns = [
     {
       title: '需求名称',
-      dataIndex: 'title',
+      dataIndex: 'name',
     },
     {
       title: '所属业务线',

@@ -20,8 +20,8 @@ export const CardBug = () => {
   const columns = [
     {
       title: '标题',
-      dataIndex: 'title',
-      key: 'title',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: '创建时间',

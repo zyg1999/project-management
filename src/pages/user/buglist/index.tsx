@@ -65,8 +65,8 @@ export const BugList = () => {
     },
     {
       title: '标题',
-      dataIndex: 'title',
-      key: 'title',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       width: 200,

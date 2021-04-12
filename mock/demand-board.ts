@@ -5,28 +5,28 @@ const demandBorder = {
     total: 65,
     list: [
       {
-        title: 'XXX需求',
+        name: 'XXX需求',
         link: 'https://www.baidu.com',
         people_info: [
           {
-            title: '需求内部评估',
+            name: '需求内部评估',
             avatar:
               'https://sf3-ttcdn-tos.pstatp.com/obj/motor-img/4c943b91f8ea01880f7367651b74a866',
-            name: 'zyg',
+            user_name: 'zyg',
             time: '',
           },
         ],
         priority_status: 1,
       },
       {
-        title: 'XXX需求',
+        name: 'XXX需求',
         link: 'https://www.baidu.com',
         people_info: [
           {
-            title: '需求内部评估',
+            name: '需求内部评估',
             avatar:
               'https://sf3-ttcdn-tos.pstatp.com/obj/motor-img/4c943b91f8ea01880f7367651b74a866',
-            name: 'zyg',
+            user_name: 'zyg',
             time: '',
           },
         ],
