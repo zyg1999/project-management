@@ -35,6 +35,8 @@ export const SYSTEM_TYPE = [
   { label: 'iOS', value: 2 },
   { label: 'Android', value: 3 },
   { label: 'Serve', value: 4 },
+  { label: 'PM', value: 5 },
+  { label: 'QA', value: 6 },
 ];
 
 export const BUG_STATUS = [
