@@ -2,31 +2,35 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, Button } from 'antd';
-import { openNotificationWithIcon } from '@utils/util';
+import { login } from '@api/login';
 import styles from './index.less';
 
 interface InitProp {
   history: any;
 }
 function Login(props: InitProp) {
-  const [userName, setUserName] = useState<string>('user');
-  const [password, setPassword] = useState<string>('123456');
+  const [phone, setUserPhone] = useState<string>('18329968200');
+  const [password, setPassword] = useState<string>('123');
 
   /**
    * @desc 提交登陆
    */
   const handleSubmit = () => {
-    if (userName === 'user' && password === '123456') {
+    login({
+      phoneNumber: phone,
+      password,
+    }).then((res) => {
+      const { token = '' } = res;
+      const info = JSON.parse(window.atob(token));
       const { history } = props;
-      history.push('/user');
-      localStorage.setItem('accessToken', 'login');
-    } else if (userName === 'admin') {
-      const { history } = props;
-      history.push('/admin');
-      localStorage.setItem('accessToken', 'login');
-    } else {
-      openNotificationWithIcon('error', '账号或密码错误', '用户名：admin, 密码：123456');
-    }
+      if (info?.role === 1) {
+        history.push('/admin');
+      } else {
+        history.push('/user');
+      }
+      localStorage.setItem('authorized_token', token);
+      localStorage.setItem('phone', info?.phoneNumber);
+    });
   };
 
   return (
@@ -43,11 +47,11 @@ function Login(props: InitProp) {
           <div>
             <h3>登陆</h3>
             <Input
-              defaultValue={userName}
+              defaultValue={phone}
               prefix={<UserOutlined className={styles.iconDom} />}
               className={styles.inputDom}
-              onChange={(e) => setUserName(e.target.value)}
-              placeholder="请输入用户名"
+              onChange={(e) => setUserPhone(e.target.value)}
+              placeholder="请输入手机号"
             />
             <Input
               defaultValue={password}

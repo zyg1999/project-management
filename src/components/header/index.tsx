@@ -12,7 +12,7 @@ export const Header: React.FC<HeaderProps> = ({ isAdmin = false }) => {
   }, []);
 
   const handleExit = React.useCallback(() => {
-    window.location.href = `${window.origin}/login`;
+    window.location.href = `${window.origin}/userlogin`;
   }, []);
 
   return (

@@ -8,9 +8,9 @@ export default function Routers() {
   return (
     <Router>
       <Switch>
-        <Redirect exact from="/" to="/login" />
+        <Redirect exact from="/" to="/userlogin" />
         <Route exact path="/" component={Login} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/userlogin" component={Login} />
         <Route path="/user" render={() => <User />} />
         <Route path="/admin" render={() => <Admin />} />
       </Switch>

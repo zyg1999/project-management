@@ -14,10 +14,19 @@ module.exports = merge(baseConfig, {
   ],
   devServer: {
     contentBase: resolve(__dirname, '../dist'),
+    host: '0.0.0.0',
     port: 3000,
     open: true,
     hot: true,
     progress: true,
     historyApiFallback: true,
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://127.0.0.1:8080',
+    //     secure: false,
+    //     pathRewrite: {},
+    //     changeOrigin: true,
+    //   },
+    // },
   },
 });

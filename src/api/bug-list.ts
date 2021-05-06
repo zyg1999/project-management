@@ -1,3 +1,3 @@
 import request from './ajax';
 
-export const getBugList = () => request.get('/bug/list');
+export const getBugList = () => request.get('/api/bug/list');

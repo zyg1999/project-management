@@ -1,20 +1,63 @@
 import * as React from 'react';
-import { Table, Popconfirm, Button, Modal, Tag, Form, Input, Select } from 'antd';
+import { Table, Popconfirm, Button, Modal, Tag, Form, Input, Select, message } from 'antd';
 
 import { SYSTEM_TYPE } from '@constant/index';
-import { getPeopleList } from '../../../api/admin';
+import { addPeople, getPeopleList, delPeople } from '@api/people';
 
-import '../../../../mock/people';
 export const PeopleManage = () => {
   const [list, setList] = React.useState();
   const [isModalVisible, setModalVisible] = React.useState(false);
   const [form] = Form.useForm();
+  const [pagination, setPagination] = React.useState({ current: 1, pageSize: 2, total: 0 });
 
-  React.useEffect(() => {
-    getPeopleList().then((res) => {
-      setList(res?.list || []);
+  const pageRef = React.useRef<any>();
+  const listRef = React.useRef([]);
+
+  const handleTableChange = (paginationNext) => {
+    const { current, pageSize } = paginationNext;
+    const offset = (current - 1) * pageSize;
+    getPeopleList({
+      limit: pagination.pageSize,
+      offset,
+    }).then((res) => {
+      const { total, user } = res;
+      setList(user || []);
+      listRef.current = user || [];
+      setPagination({
+        ...pagination,
+        current,
+        total,
+      });
+
+      pageRef.current = {
+        ...pagination,
+        total,
+        current,
+      };
     });
+  };
+  React.useEffect(() => {
+    handleTableChange(pagination);
   }, []);
+
+  const handleDel = React.useCallback(
+    (phone: string) => () => {
+      let { current, pageSize } = pageRef.current;
+
+      if (listRef.current && listRef.current.length === 1) {
+        current = current - 1 !== 0 ? current - 1 : 1;
+        setPagination({
+          ...pagination,
+          current,
+        });
+      }
+      delPeople({ phone }).then(() => {
+        message.success('添加成功');
+        handleTableChange({ pageSize, current });
+      });
+    },
+    []
+  );
   const columns = [
     {
       title: '姓名',
@@ -22,7 +65,7 @@ export const PeopleManage = () => {
     },
     {
       title: '手机号',
-      dataIndex: 'phone',
+      dataIndex: 'phone_number',
     },
     {
       title: '权限',
@@ -42,7 +85,7 @@ export const PeopleManage = () => {
         <>
           <Popconfirm
             title={`确定要删除${row.name}吗？`}
-            onConfirm={() => {}}
+            onConfirm={handleDel(row.phone_number)}
             cancelText="取消"
             okText="确认"
           >
@@ -54,17 +97,22 @@ export const PeopleManage = () => {
       ),
     },
   ];
-  // const onFinish =
+
   const handleOk = React.useCallback(() => {
     form
       .validateFields()
       .then((values) => {
-        console.log(values, 'val');
+        addPeople(values).then(() => {
+          message.success('添加成功');
+          handleTableChange(pagination);
+        });
       })
       .catch((errorInfo) => {
         console.log(errorInfo, 'info');
+      })
+      .finally(() => {
+        setModalVisible(false);
       });
-    console.log(123);
   }, [form]);
 
   const handleCancel = React.useCallback(() => {
@@ -80,7 +128,14 @@ export const PeopleManage = () => {
       >
         添加人员
       </Button>
-      <Table style={{ marginTop: 20 }} columns={columns} rowKey="phone" dataSource={list} />
+      <Table
+        style={{ marginTop: 20 }}
+        columns={columns}
+        rowKey="phone"
+        dataSource={list}
+        onChange={handleTableChange}
+        pagination={pagination}
+      />
       <Modal
         title="添加人员"
         visible={isModalVisible}
@@ -94,12 +149,16 @@ export const PeopleManage = () => {
           <Form.Item
             label="手机号"
             name="phone"
-            rules={[
-              { required: true, message: '请填写手机号' },
-              { type: 'number', message: '手机号必须是数字' },
-            ]}
+            rules={[{ required: true, message: '请填写手机号' }]}
           >
             <Input maxLength={11} placeholder="请输入手机号" allowClear></Input>
+          </Form.Item>
+          <Form.Item
+            label="密码"
+            name="pass_word"
+            rules={[{ required: true, message: '请填写密码' }]}
+          >
+            <Input maxLength={20} placeholder="请输入账户密码" allowClear />
           </Form.Item>
           <Form.Item label="姓名" name="name" rules={[{ required: true, message: '请填写姓名' }]}>
             <Input maxLength={10} placeholder="请输入姓名" allowClear></Input>
@@ -107,14 +166,18 @@ export const PeopleManage = () => {
           <Form.Item
             label="权限"
             name="is_admin"
-            rules={[{ required: true, message: '请选择角色' }]}
+            rules={[{ required: true, message: '请选择权限' }]}
           >
             <Select placeholder="请选择权限">
               <Select.Option value={0}>非管理员</Select.Option>
               <Select.Option value={1}>管理员</Select.Option>
             </Select>
           </Form.Item>
-          <Form.Item label="角色" name="role" rules={[{ required: true, message: '请选择角色' }]}>
+          <Form.Item
+            label="角色"
+            name="role_type"
+            rules={[{ required: true, message: '请选择角色' }]}
+          >
             <Select placeholder="请选择角色" options={SYSTEM_TYPE} allowClear />
           </Form.Item>
         </Form>

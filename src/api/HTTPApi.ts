@@ -107,6 +107,12 @@ export default class HttpApi {
     // if (isAddLogIdHeader) {
     //   headers['X-TT-LOGID'] = requestId;
     // }
+
+    const token = window.localStorage.getItem('authorized_token');
+    if (token) {
+      headers['authorized'] = token;
+    }
+
     return this.axiosInstance
       .request({
         ...lastOption,
@@ -119,18 +125,34 @@ export default class HttpApi {
       })
       .then(
         (response) => {
-          if (isCustomRes) {
-            return response;
-          }
+          // if (isCustomRes) {
+          //   return response;
+          // }
           const { data, status } = response;
           if (status === 200) {
-            return isWrapData ? data : data;
+            // return data;
+            const { responseMetaData, result } = data;
+            if ([700, 701, 702].includes(responseMetaData?.error?.code)) {
+              window.location.replace(`${window.location.origin}/userlogin`);
+            }
+            if (responseMetaData?.error) {
+              message.error(responseMetaData.error?.message);
+              return Promise.reject(response);
+            }
+            return Promise.resolve(result);
           }
-          if (isCustomErrCode) {
-            return Promise.reject(response);
-          }
+          // if (isCustomErrCode) {
+          //   return Promise.reject(response);
+          // }
           const text = '未知错误';
           message.error(data.message || text, 5);
+          // console.log(data, 'data');
+          // const { responseMetaData, result } = data;
+          // if (responseMetaData?.error) {
+          //   message.error(responseMetaData.error?.message);
+          //   return Promise.reject(response);
+          // }
+          // return Promise.resolve(result);
           return Promise.reject(response);
         },
         (err: AxiosError) => {
