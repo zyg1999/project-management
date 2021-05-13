@@ -4,7 +4,6 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, Button } from 'antd';
 import { login } from '@api/login';
 import styles from './index.less';
-
 interface InitProp {
   history: any;
 }
@@ -20,7 +19,7 @@ function Login(props: InitProp) {
       phoneNumber: phone,
       password,
     }).then((res) => {
-      const { token = '' } = res;
+      const { token = '', name = '' } = res;
       const info = JSON.parse(window.atob(token));
       const { history } = props;
       if (info?.role === 1) {
@@ -30,6 +29,7 @@ function Login(props: InitProp) {
       }
       localStorage.setItem('authorized_token', token);
       localStorage.setItem('phone', info?.phoneNumber);
+      localStorage.setItem('name', name);
     });
   };
 

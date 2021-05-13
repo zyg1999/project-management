@@ -4150,7 +4150,7 @@
   "resolved" "https://bnpm.byted.org/date-fns/-/date-fns-2.21.1.tgz"
   "version" "2.21.1"
 
-"dayjs@^1.8.30":
+"dayjs@^1.10.4", "dayjs@^1.8.30":
   "integrity" "sha1-jlRKm4aD9heD9XCYCoqA6vVKseI="
   "resolved" "https://bnpm.byted.org/dayjs/-/dayjs-1.10.4.tgz"
   "version" "1.10.4"

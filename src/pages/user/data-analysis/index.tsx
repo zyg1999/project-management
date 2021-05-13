@@ -8,7 +8,7 @@ export const Chart: React.FC = () => {
   const option = {
     color: '#4c7beb',
     legend: {
-      data: ['销量'],
+      data: ['数量统计'],
     },
     tooltip: {
       trigger: 'axis',
@@ -17,12 +17,12 @@ export const Chart: React.FC = () => {
       },
     },
     xAxis: {
-      data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+      data: ['T-6', 'T-5', 'T-4', 'T-3', 'T-2', 'T-1'],
     },
     yAxis: {},
     series: [
       {
-        name: '销量',
+        name: '数据',
         type: 'bar',
         data: [5, 20, 36, 10, 10, 20],
       },
@@ -97,7 +97,7 @@ export const Chart: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <Card>
-        <h3>柱形图</h3>
+        <h3>需求统计</h3>
         <ReactEchartsCommon style={{ width: 600 }} option={option} />
       </Card>
       <Card>

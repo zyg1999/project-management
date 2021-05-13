@@ -1,33 +1,45 @@
 import * as React from 'react';
-import { Modal, Form, Select, Input, Upload, message } from 'antd';
+import { Modal, Form, Select, Input, message } from 'antd';
 import { BUGTYPE, BUGTIME, SYSTEM_TYPE, BUG_PRIORITY } from '@constant/index';
 import styles from './index.less';
+import { addBug } from '@api/bug';
+import { PeopleList } from '../people-list/index';
 
 const { Item } = Form;
-import { InboxOutlined } from '@ant-design/icons';
+
 type BugCreateProps = {
   visible: boolean;
   setVisible: (visible: boolean) => void;
+  demand: any[];
+  update: () => void;
 };
-export const BugCreate: React.FC<BugCreateProps> = ({ visible, setVisible }) => {
-  const { Dragger } = Upload;
+export const BugCreate: React.FC<BugCreateProps> = ({ visible, setVisible, demand, update }) => {
+  const [form] = Form.useForm();
+  const name = localStorage.getItem('name');
 
-  const props = {
-    name: 'file',
-    multiple: true,
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  };
+  const handleOk = React.useCallback(() => {
+    form
+      .validateFields()
+      .then((values) => {
+        const phone = localStorage.getItem('phone') || '';
+        addBug({
+          ...values,
+          reporter_id: phone,
+        }).then(() => {
+          message.success('创建成功');
+          setVisible(false);
+          update();
+        });
+      })
+      .then((err) => {
+        console.log(err, 'err');
+      });
+  }, []);
+
+  const handleCancel = React.useCallback(() => {
+    form.resetFields();
+    setVisible(false);
+  }, []);
   return (
     <Modal
       title="创建 Bug"
@@ -35,12 +47,14 @@ export const BugCreate: React.FC<BugCreateProps> = ({ visible, setVisible }) => 
       width={700}
       okText="确定"
       cancelText="取消"
-      onCancel={() => setVisible(false)}
+      onOk={handleOk}
+      onCancel={handleCancel}
     >
-      <Form className={styles.form}>
+      <Form className={styles.form} form={form} initialValues={{ reporter_id: name }}>
         <Item
           label="系统类型"
           required
+          name="system_id"
           rules={[
             {
               required: true,
@@ -50,28 +64,29 @@ export const BugCreate: React.FC<BugCreateProps> = ({ visible, setVisible }) => 
         >
           <Select placeholder="请选择系统类型" options={SYSTEM_TYPE} allowClear />
         </Item>
-        <Item label="关联需求" required>
-          <Select placeholder="请设置关联需求" />
+        <Item label="关联需求" name="demand_id" required>
+          <Select placeholder="请设置关联需求" allowClear options={demand} />
         </Item>
-        <Item label="主题" required>
-          <Input placeholder="请填写主题" />
+        <Item label="主题" required name="title">
+          <Input placeholder="请填写主题" allowClear />
         </Item>
-        <Item label="优先级" required>
-          <Select placeholder="请选择 Bug 优先级" options={BUG_PRIORITY} />
+        <Item label="优先级" required name="priority_status">
+          <Select placeholder="请选择 Bug 优先级" options={BUG_PRIORITY} allowClear />
         </Item>
-        <Item label="报告人">
+        <Item label="报告人" required name="reporter_id">
           <Input disabled />
         </Item>
-        <Item label="经办人" required>
-          <Select />
+        <Item label="经办人" required name="handler_id">
+          {/* <Select placeholder="请选择经办人" options={peopleList} allowClear /> */}
+          <PeopleList placeholder="请选择经办人" />
         </Item>
-        <Item label="bug分类" required>
-          <Select placeholder="请选择bug分类" options={BUGTYPE} />
+        <Item label="bug分类" required name="type">
+          <Select placeholder="请选择bug分类" options={BUGTYPE} allowClear />
         </Item>
-        <Item label="bug发现时机" required>
-          <Select placeholder="请选择bug发现时机" options={BUGTIME} />
+        <Item label="bug发现时机" required name="opportunity">
+          <Select placeholder="请选择bug发现时机" options={BUGTIME} allowClear />
         </Item>
-        <Item label="附件">
+        {/* <Item label="附件">
           <Dragger {...props}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
@@ -82,9 +97,9 @@ export const BugCreate: React.FC<BugCreateProps> = ({ visible, setVisible }) => 
               other band files
             </p>
           </Dragger>
-        </Item>
-        <Item label="描述">
-          <Input.TextArea />
+        </Item> */}
+        <Item label="描述" name="desc">
+          <Input.TextArea allowClear />
         </Item>
       </Form>
     </Modal>

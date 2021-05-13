@@ -63,7 +63,7 @@ export function deepCompare(x, y) {
     }
 
     // Quick checking of one object being a subset of another.
-    for (let key in y) {
+    for (const key in y) {
       if (y.hasOwnProperty(key) !== x.hasOwnProperty(key)) {
         return false;
       } else if (typeof y[key] !== typeof x[key]) {
@@ -71,7 +71,7 @@ export function deepCompare(x, y) {
       }
     }
 
-    for (let key in x) {
+    for (const key in x) {
       if (y.hasOwnProperty(key) !== x.hasOwnProperty(key)) {
         return false;
       } else if (typeof y[key] !== typeof x[key]) {
@@ -222,7 +222,7 @@ export const jsonString = (json = {}) => {
         json[key].forEach((item) => {
           switch (item) {
             case moment(item, 'YYYY-MM-DD').isValid():
-              let arr = [];
+              const arr = [];
               arr.push(moment(item).format('YYYY-MM-DD HH:mm'));
               json[key] = arr;
               break;
@@ -255,4 +255,22 @@ export const openNotificationWithIcon = (type: string, message: string, descript
     message,
     description,
   });
+};
+
+export const GetRequest = (urlStr?: string) => {
+  let url = '';
+  if (typeof urlStr === 'undefined') {
+    url = decodeURI(location.search); //获取url中"?"符后的字符串
+  } else {
+    url = '?' + urlStr.split('?')[1];
+  }
+  const theRequest = new Object();
+  if (url.indexOf('?') != -1) {
+    const str = url.substr(1);
+    const strs = str.split('&');
+    for (let i = 0; i < strs.length; i++) {
+      theRequest[strs[i].split('=')[0]] = decodeURI(strs[i].split('=')[1]);
+    }
+  }
+  return theRequest;
 };

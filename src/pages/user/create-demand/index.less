@@ -1,19 +1,59 @@
 .process {
   display: flex;
   flex-wrap: wrap;
+  margin: 0 auto;
 }
 .process-item {
-  width: 200px;
+  width: 260px;
   padding: 8px;
   border-radius: 3px;
   margin-right: 10px;
   margin-bottom: 10px;
   border: 2px solid rgb(220, 222, 226);
- 
+  position: relative;
+  overflow: hidden;
 }
 
 .action{
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
+}
+
+.btn{
+  float: right;
+}
+
+
+.name {
+  cursor: pointer;
+  
+  &:hover .close{
+    visibility: visible;
+    color: #1890ff;
+    font-size: 12px;
+  }
+}
+
+.close{
+  visibility: hidden;
+}
+
+
+.solved{
+  color: #a9a9a9;
+  font-weight: 900;
+  transform: rotate(30deg);
+  margin-top: 10px;
+  float: right;
+}
+
+.card-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(153, 153, 153, 0.3);
+  height: 100%;
+  width: 100%;
+  z-index: 100;
 }

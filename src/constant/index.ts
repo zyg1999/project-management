@@ -40,8 +40,8 @@ export const SYSTEM_TYPE = [
 ];
 
 export const BUG_STATUS = [
-  { label: '重新打开', value: 1 },
-  { label: '开始', value: 2 },
+  { label: '开始', value: 1 },
+  { label: '重新打开', value: 2 },
   { label: '关闭', value: 3 },
   { label: '已解决', value: 4 },
 ];
@@ -59,4 +59,10 @@ export const RESOLUTION = [
   { label: '未复现', value: 3 },
   { label: '设计如此', value: 4 },
   { label: '未来修复', value: 5 },
+];
+
+export const DEMAND_PRIORITY = [
+  { value: 1, label: '普通(p2)' },
+  { value: 2, label: '紧急(p1)' },
+  { value: 3, label: '非常紧急(p0)' },
 ];
