@@ -34,6 +34,7 @@ export const BugList = () => {
   const [rowInfo, setRowInfo] = React.useState();
 
   const handleClick = React.useCallback(() => {
+    // setRowInfo({});
     setVisible(true);
   }, []);
 
@@ -49,10 +50,15 @@ export const BugList = () => {
   const handleDetailClick = React.useCallback(
     (row: any) => () => {
       setRowInfo(row);
-      setBugVisible(true);
+      setVisible(true);
     },
     []
   );
+  React.useEffect(() => {
+    if (!createVisible) {
+      setRowInfo({});
+    }
+  }, [createVisible]);
   const columns = [
     {
       title: '创建日期',
@@ -121,10 +127,9 @@ export const BugList = () => {
       render: (val, _) => demand?.find((item) => item.value === val)?.label,
     },
     {
-      width: 200,
-      title: '描述',
-      dataIndex: 'desc',
-      key: 'desc',
+      title: '解决方案',
+      dataIndex: 'solve_type',
+      render: (val) => RESOLUTION.find((item) => item.value === val)?.label || '-',
     },
     {
       title: '操作',
@@ -342,7 +347,14 @@ export const BugList = () => {
           dataSource={bugList}
         />
       </Card>
-      <BugCreate visible={createVisible} demand={demand} setVisible={setVisible} update={update} />
+      <BugCreate
+        visible={createVisible}
+        demand={demand}
+        setVisible={setVisible}
+        update={update}
+        rowInfo={rowInfo}
+        peopleList={peopleList?.find((item) => item.phone_number === rowInfo?.reporter_id)?.name}
+      />
       <SolveBugModal
         visible={bugVisible}
         setVisible={setBugVisible}
